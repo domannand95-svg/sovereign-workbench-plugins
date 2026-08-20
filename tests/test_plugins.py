@@ -3,6 +3,7 @@ import zipfile
 from pathlib import Path
 
 import pytest
+from jsonschema import Draft202012Validator
 
 from sovereign_plugins.cli import main
 from sovereign_plugins.contracts import PluginRequest, hash_file
@@ -55,3 +56,16 @@ def test_claim_plugin_extracts_doi_and_gap(tmp_path: Path):
     result = default_registry().get("research.claims").run(PluginRequest(path, hash_file(path)))
     kinds = {item["kind"] for item in result.findings}
     assert kinds == {"doi", "research_gap"}
+
+
+def test_published_schemas_accept_builtin_contracts(tmp_path: Path):
+    root = Path(__file__).parents[1]
+    manifest_schema = json.loads((root / "schemas/plugin-manifest-v1.schema.json").read_text())
+    result_schema = json.loads((root / "schemas/plugin-result-v1.schema.json").read_text())
+    registry = default_registry()
+    for manifest in registry.manifests():
+        Draft202012Validator(manifest_schema).validate(json.loads(json.dumps(manifest.__dict__)))
+    path = tmp_path / "note.md"
+    path.write_text("Research required", encoding="utf-8")
+    result = registry.get("research.claims").run(PluginRequest(path, hash_file(path)))
+    Draft202012Validator(result_schema).validate(result.to_dict())

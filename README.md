@@ -41,6 +41,9 @@ Every successful response is `sovereign.plugin.result.v1`, has `status` set to
 The CLI rejects symbolic links, unsupported suffixes, oversized inputs, unknown
 plugins, duplicate plugin identities, and result-binding violations.
 
+Machine-readable manifest and result contracts are published under `schemas/`
+for BKI and Sovereign consumers. Schema compatibility never grants authority.
+
 Optional libraries are grouped by capability so a laptop installs only what it
 needs. Network access is denied by every built-in manifest. Future research,
 transcription, semantic-search, and dispatch adapters must declare network,

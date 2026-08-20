@@ -12,13 +12,16 @@ requires-python = ">=3.11"
 documents = ["docling>=2,<3", "pypdf>=5,<7"]
 media = ["Pillow>=10,<13"]
 search = ["qdrant-client>=1.12,<2"]
-dev = ["pytest>=8,<10"]
+dev = ["pytest>=8,<10", "jsonschema>=4,<5"]
 
 [project.scripts]
 swp = "sovereign_plugins.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.data-files]
+"share/sovereign-workbench-plugins/schemas" = ["schemas/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

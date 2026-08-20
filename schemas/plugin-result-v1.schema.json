@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/domannand95-svg/sovereign-workbench-plugins/schemas/plugin-result-v1.schema.json",
+  "title": "Sovereign Plugin Result v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "authority", "plugin_id", "plugin_version", "input_sha256", "status", "findings", "artifacts", "requested_actions", "errors"],
+  "properties": {
+    "contract_version": {"const": "sovereign.plugin.result.v1"},
+    "authority": {"const": "none"},
+    "plugin_id": {"type": "string"},
+    "plugin_version": {"type": "string"},
+    "input_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "status": {"const": "candidate"},
+    "findings": {"type": "array", "items": {"type": "object"}},
+    "artifacts": {"type": "array", "items": {"type": "object"}},
+    "requested_actions": {"type": "array", "items": {"type": "object"}},
+    "errors": {"type": "array", "items": {"type": "string"}}
+  }
+}
