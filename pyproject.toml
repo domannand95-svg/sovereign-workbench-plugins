@@ -10,7 +10,7 @@ requires-python = ">=3.11"
 
 [project.optional-dependencies]
 documents = ["docling>=2,<3", "pypdf>=5,<7"]
-media = ["Pillow>=10,<13"]
+media = ["Pillow>=10,<14"]
 search = ["qdrant-client>=1.12,<2"]
 dev = ["pytest>=8,<10", "jsonschema>=4,<5"]
 
